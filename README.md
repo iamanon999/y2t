@@ -54,7 +54,6 @@ Y2T/
 
 ---
 
-## 📝 Giấy phép (License) & Hỗ trợ
+## 📝 Hỗ trợ
 
-- Dự án thuộc quyền sở hữu của **[iamanon999](https://github.com/iamanon999)**.
-- Mọi thắc mắc và báo lỗi vui lòng tạo Issue trên GitHub hoặc liên hệ qua kênh hỗ trợ.
+- Liên hệ **[iamanon999](https://github.com/iamanon999)**.
