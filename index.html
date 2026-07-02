@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2T - YouTube 2 TikTok Automation</title>
+    <meta name="description" content="Công cụ tự động hóa toàn diện từ YouTube sang TikTok. Tự động tải, render và đăng video cực kỳ mạnh mẽ.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0B0E14;
+            --surface-color: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-gradient: linear-gradient(135deg, #FF0000 0%, #00F2FE 100%);
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --accent-yt: #FF0000;
+            --accent-tt: #00F2FE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Abstract Background Glow */
+        .glow-bg {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(255,0,0,0.15) 0%, rgba(11,14,20,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: floatGlow 10s infinite alternate ease-in-out;
+        }
+        .glow-bg-2 {
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(11,14,20,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: floatGlow2 12s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        @keyframes floatGlow2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-tt);
+        }
+
+        .github-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 8rem 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            animation: fadeUp 1s ease-out forwards;
+        }
+
+        .hero h1 span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-tt);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            margin-top: 5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
+            .cta-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-bg"></div>
+    <div class="glow-bg-2"></div>
+
+    <header>
+        <div class="logo">Y2T</div>
+        <nav class="nav-links">
+            <a href="#features">Tính năng</a>
+            <a href="#guide">Hướng dẫn</a>
+            <a href="https://github.com/iamanon999/Y2T" class="github-btn" target="_blank">Star on GitHub</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Tự động hóa <span>Hoàn hảo</span><br>YouTube sang TikTok</h1>
+        <p>Phần mềm mạnh mẽ giúp bạn theo dõi kênh, tải video, render tự động và reup lên hàng loạt kênh TikTok chỉ với một cú click chuột.</p>
+        <div class="cta-buttons">
+            <a href="https://github.com/iamanon999/Y2T/releases" class="btn-primary" target="_blank">Tải Xuống Ngay</a>
+            <a href="https://github.com/iamanon999/Y2T" class="github-btn" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px;" target="_blank">Xem Mã Nguồn</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Auto Tracking</h3>
+                <p>Quét và phát hiện video mới nhất từ danh sách kênh YouTube bạn đã đăng ký với độ trễ gần như bằng không.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📥</div>
+                <h3>Smart Download</h3>
+                <p>Tải bằng engine ytdlp hoặc API nội bộ. Dễ dàng tùy chỉnh tải video Dài hoặc Shorts cùng độ phân giải lên đến 1080p.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3>Auto Render</h3>
+                <p>Tích hợp sẵn FFmpeg mạnh mẽ giúp xử lý, cắt xén và render video thần tốc chuẩn định dạng TikTok.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Multi-Upload</h3>
+                <p>Tự động đăng tải lên hàng loạt kênh TikTok. Hỗ trợ thay đổi Proxy và chèn Hashtag riêng biệt cho từng video.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍪</div>
+                <h3>Cookie Manager</h3>
+                <p>Hệ thống quản lý Cookies định dạng JSON thông minh, giúp lách cơ chế chống Bot bảo vệ an toàn cho tài khoản.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Bản quyền thuộc về <a href="https://github.com/iamanon999" style="color: var(--accent-tt); text-decoration: none; font-weight: bold;">iamanon999</a>. Y2T Automation Project.</p>
+    </footer>
+
+</body>
+</html>
