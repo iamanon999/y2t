@@ -327,6 +327,45 @@
             color: var(--accent-tt);
         }
 
+        .video-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .video-link:hover {
+            border-color: var(--accent-tt);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .video-link .play-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .video-link .video-info {
+            flex: 1;
+        }
+
+        .video-link .video-info .title {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .video-link .video-info .url {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+
         .guide-cta {
             text-align: center;
             margin-top: 3rem;
@@ -341,12 +380,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Screenshots Section */
-        .screenshots {
-            padding: 5rem 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+
 
         .screenshots h2 {
             font-family: 'Be Vietnam Pro', sans-serif;
@@ -424,9 +458,126 @@
         @media (max-width: 768px) {
             .screenshot-grid { grid-template-columns: 1fr; }
         }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 5%;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        /* Responsive */
+        .pricing h2 {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .pricing h2 span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-sub {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-tt);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-tt);
+            border-width: 2px;
+        }
+
+        .pricing-card .plan-name {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1rem 0;
+        }
+
+        .pricing-card .price-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .pricing-card ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-tt);
+            font-weight: 700;
+        }
+
+        .pricing-card .btn-buy {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card .btn-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+        }
+
+        footer {
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             .nav-links { display: none; }
@@ -445,9 +596,11 @@
         <div class="logo">Y2T</div>
         <nav class="nav-links">
             <a href="#features">Tính năng</a>
+            <a href="#pricing">Bảng giá</a>
             <a href="#guide">Hướng dẫn</a>
-            <a href="#screenshots">Ảnh chụp</a>
-            <a href="https://github.com/iamanon999/Y2T" class="github-btn" target="_blank">Star on GitHub</a>
+
+
+            <a href="https://t.me/iamanon999" class="github-btn" target="_blank">Liên hệ Telegram</a>
         </nav>
     </header>
 
@@ -490,9 +643,53 @@
         </div>
     </section>
 
+    <section id="pricing" class="pricing">
+        <h2>Bảng <span>giá</span></h2>
+        <p class="pricing-sub">Chọn gói phù hợp với nhu cầu của bạn — hỗ trợ 2 PC / 1 tài khoản</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">Auto Upload</div>
+                <div class="price">8 USD</div>
+                <div class="price-sub">/ tháng — 2 PC</div>
+                <ul>
+                    <li>Canh video mới từ kênh YouTube</li>
+                    <li>Tự động tải video</li>
+                    <li>Tự động upload lên TikTok</li>
+                </ul>
+                <a href="https://t.me/iamanon999" class="btn-buy" target="_blank">Mua ngay</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="plan-name">Phân tích tài khoản</div>
+                <div class="price">8 USD</div>
+                <div class="price-sub">/ tháng — 2 PC</div>
+                <ul>
+                    <li>Thống kê thu nhập theo ngày, theo tháng</li>
+                    <li>Kiểm tra balance tài khoản</li>
+                    <li>Bật kiếm tiền</li>
+                    <li>Kháng cáo video vi phạm</li>
+                    <li>Kiểm tra video vi phạm</li>
+                </ul>
+                <a href="https://t.me/iamanon999" class="btn-buy" target="_blank">Mua ngay</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="plan-name">Combo</div>
+                <div class="price">15 USD</div>
+                <div class="price-sub">/ tháng — 2 PC</div>
+                <ul>
+                    <li>Canh video mới, tải & up TikTok</li>
+                    <li>Phân tích tài khoản</li>
+                </ul>
+                <a href="https://t.me/iamanon999" class="btn-buy" target="_blank">Mua ngay</a>
+            </div>
+        </div>
+    </section>
+
     <section id="guide" class="guide">
         <h2>Hướng dẫn <span>sử dụng</span></h2>
-        <p class="guide-sub">Chỉ 3 bước đơn giản để bắt đầu tự động hóa YouTube → TikTok</p>
+        <p class="guide-sub">Đơn giản để bắt đầu tự động hóa YouTube → TikTok</p>
 
         <div class="step-card">
             <div class="step-header">
@@ -500,7 +697,7 @@
                 <h3>Tải về & Giải nén</h3>
             </div>
             <ul>
-                <li>Tải file <code>y2t.zip</code> từ mục <a href="https://github.com/iamanon999/Y2T/releases" style="color: var(--accent-tt);">Releases</a></li>
+                <li>Tải file <code>y2t.zip</code> từ mục <a href="https://github.com/iamanon999/Y2T/releases" target="_blank" style="color: var(--accent-tt);">Releases</a></li>
                 <li>Giải nén vào thư mục bất kỳ (khuyên dùng đường dẫn không dấu, không khoảng trắng)</li>
                 <li>Chạy file <code>y2t.exe</code> — giao diện Dashboard sẽ xuất hiện</li>
             </ul>
@@ -516,6 +713,9 @@
                 <li>Dán URL kênh YouTube vào ô <strong>Add Channel</strong> và nhấn Enter</li>
                 <li>Tùy chỉnh tải <strong>Shorts/Long</strong>, thêm <strong>Hashtag</strong>, gán <strong>Proxy</strong> cho từng kênh</li>
                 <li>Thiết lập <strong>Account</strong> TikTok tương ứng với Cookies đã lưu</li>
+				<li>Xuất cookie <strong>youtube</strong> để tải video ko bị chặn</li>
+				<li>Tải bằng <strong>apidl</strong> sẽ nhanh hơn <strong>ytdlp</strong> Tuy nhiên ytdlp sẽ ổn định hơn</li>
+				<li>Upload bằng <strong>apiUP</strong> sẽ nhanh hơn <strong>safeUP</strong> Tuy nhiên safeUP sẽ ổn định hơn</li>
             </ul>
         </div>
 
@@ -525,38 +725,57 @@
                 <h3>Vận hành tự động</h3>
             </div>
             <ul>
-                <li>Nhấn nút <strong>Start</strong> — hệ thống tự động quét, tải, render và đăng video</li>
-                <li>Theo dõi tiến trình qua tab <strong>Logs</strong> và <strong>Notifications</strong></li>
+                <li>Hệ thống <strong>tự động</strong>  quét, tải, render và đăng video</li>
+                <li>Theo dõi tiến trình qua tab <strong>Logs</strong> và <strong>Notifications</strong> hoặc qua telegram</li>
                 <li>Mỗi video mới từ kênh YouTube sẽ tự động được reup lên TikTok</li>
-                <li>Tận hưởng hệ thống chạy 24/7 — hoàn toàn tự động!</li>
             </ul>
         </div>
 
-        <div class="guide-cta">
-            <p>Sẵn sàng trải nghiệm? Tải ngay bản mới nhất từ GitHub Releases!</p>
-            <a href="https://github.com/iamanon999/Y2T" class="btn-primary" target="_blank">GitHub Repository</a>
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <h3>Lấy Cookie YouTube & TikTok</h3>
+            </div>
+            <ul>
+                <li>Cài extension <a href="https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc" style="color: var(--accent-tt);" target="_blank">Get cookies.txt LOCALLY</a> trên Chrome</li>
+                <li><strong>Cookie YouTube:</strong> Đăng nhập YouTube → Export → đổi tên thành <code>www.youtube.com_cookies</code> → lưu vào thư mục <code>data/</code></li>
+                <li><strong>Cookie TikTok:</strong> Đăng nhập TikTok → Export → lưu vào thư mục <code>data\cookies</code></li>
+                <li>Click header cột <strong>Account</strong> ở Dashboard để mở <code>data\cookies</code>, dán file cookie TikTok vào</li>
+                <li>Quay lại Dashboard, cột <strong>Account</strong> chọn tên acc tương ứng là xong</li>
+            </ul>
         </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">▸</div>
+                <h3>Video hướng dẫn Bảng điều khiển</h3>
+            </div>
+            <a class="video-link" href="https://www.youtube.com/watch?v=MPAwHdzQDT8" target="_blank">
+                <span class="play-icon">▶</span>
+                <div class="video-info">
+                    <div class="title">Xem trên YouTube</div>
+                    <div class="url">youtube.com/watch?v=MPAwHdzQDT8</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">▸</div>
+                <h3>Video hướng dẫn Phân tích tài khoản</h3>
+            </div>
+            <a class="video-link" href="https://www.youtube.com/watch?v=3eKZ2LvMf_A" target="_blank">
+                <span class="play-icon">▶</span>
+                <div class="video-info">
+                    <div class="title">Xem trên YouTube</div>
+                    <div class="url">youtube.com/watch?v=3eKZ2LvMf_A</div>
+                </div>
+            </a>
+        </div>
+
     </section>
 
-    <section id="screenshots" class="screenshots">
-        <h2>Ảnh chụp <span>màn hình</span></h2>
-        <p class="screenshots-sub">Giao diện Dashboard trực quan, dễ sử dụng</p>
 
-        <div class="screenshot-grid">
-            <div class="screenshot-card">
-                <div class="screenshot-placeholder">📸 Ảnh Dashboard (thay file trong assets/)</div>
-                <div class="caption">Giao diện Dashboard chính — quản lý kênh YouTube</div>
-            </div>
-            <div class="screenshot-card">
-                <div class="screenshot-placeholder">📸 Ảnh Logs & Notifications (thay file trong assets/)</div>
-                <div class="caption">Theo dõi tiến trình tải, render và upload</div>
-            </div>
-            <div class="screenshot-card">
-                <div class="screenshot-placeholder">📸 Ảnh Settings (thay file trong assets/)</div>
-                <div class="caption">Cấu hình tài khoản, proxy và hashtag</div>
-            </div>
-        </div>
-    </section>
 
     <footer>
         <p>© 2026 Bản quyền thuộc về <a href="https://github.com/iamanon999" style="color: var(--accent-tt); text-decoration: none; font-weight: bold;">iamanon999</a>. Y2T Automation Project.</p>
